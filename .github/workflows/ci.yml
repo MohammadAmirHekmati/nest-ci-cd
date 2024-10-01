@@ -21,9 +21,22 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run tests
+        run: npm test
+
       - name: Build project
         run: npm run build
 
       - name: Deploy to server
         run: |
-          sshpass -p 'O5izCcjbB49oqukh' ssh -o StrictHostKeyChecking=no root@185.8.172.52 'cd /root/nest-ci-cd && git pull && npm install && npm run start:dev'
+          sshpass -p 'O5izCcjbB49oqukh' ssh -o StrictHostKeyChecking=no root@185.8.172.52 '
+            cd /root/nest-ci-cd &&
+            sudo apt update &&
+            sudo apt install -y nodejs npm &&
+            git pull &&
+            npm install &&
+            npm run build &&
+            pm2 stop nest-ci-cd &&
+            pm2 delete nest-ci-cd &&
+            pm2 start /dist/main.js --name nest-ci-cd
+          '
