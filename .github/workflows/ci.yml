@@ -34,5 +34,5 @@ jobs:
             sudo npm install -g pm2 &&
             pm2 stop nest-ci-cd &&
             pm2 delete nest-ci-cd &&
-            pm2 start /dist/main.js --name nest-ci-cd
+            pm2 start dist/main.js --name nest-ci-cd
           '
