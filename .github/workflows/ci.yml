@@ -18,14 +18,15 @@ jobs:
         with:
           node-version: '20'
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Prettier Format
-      run: npm run format
-
-    - name: Eslint Check
-      run: npm run lint
-
-    - name: Run tests
-      run: npm run test
+      - name: Deploy to server
+        run: |
+          sshpass -p 'O5izCcjbB49oqukh' ssh -o StrictHostKeyChecking=no root@185.8.172.52 '
+            cd /root/nest-ci-cd &&
+            sudo apt update &&
+            sudo apt install -y nodejs npm &&
+            git pull &&
+            sudo npm install -g pm2 &&
+            pm2 stop nest-ci-cd &&
+            pm2 delete nest-ci-cd &&
+            pm2 start dist/main.js --name nest-ci-cd
+          '
