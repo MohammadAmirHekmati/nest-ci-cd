@@ -17,3 +17,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+
+      - name: Run Tests
+      run: npm run test
