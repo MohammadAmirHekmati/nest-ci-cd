@@ -26,7 +26,6 @@ jobs:
 
       - name: Deploy to server
         run: |
-          sshpass -p 'O5izCcjbB49oqukh' ssh -o StrictHostKeyChecking=no root@185.8.172.52 '
             cd /root/nest-ci-cd &&
             sudo apt update &&
             sudo apt install -y nodejs npm &&
